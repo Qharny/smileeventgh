@@ -39,14 +39,21 @@ export default function SaxborsahHome() {
 
       <div className="pb-20 md:pb-0 md:pl-24">
         <header className="mx-auto flex max-w-[88rem] items-center justify-between px-5 pt-6 md:px-10 md:pt-8">
-          <a href="#top" aria-label="Saxborsah Music, home" className="block">
+          <a href="#top" aria-label="Saxborsah Music & Event Management, home" className="flex items-center gap-3 md:gap-4">
             <Image src={wordmarkDeep} alt="" className="h-6 w-auto md:h-7" preload />
+            <span aria-hidden className="h-7 w-px bg-gold/50 md:h-8" />
+            <span className="font-utility text-[0.5625rem] uppercase leading-[1.35] tracking-[0.16em] text-ink/80 md:text-[0.625rem]">
+              Music &amp;
+              <br />
+              Event Management
+            </span>
           </a>
           <a
             href="#request"
             className="border border-gold/60 px-4 py-2 font-utility text-[0.6875rem] uppercase tracking-[0.14em] text-gold-deep transition-colors hover:border-gold-hi hover:bg-gold hover:text-ink"
           >
-            Request a performance
+            <span className="sm:hidden">Book</span>
+            <span className="hidden sm:inline">Request a performance</span>
           </a>
         </header>
 
@@ -280,7 +287,15 @@ export default function SaxborsahHome() {
 
         <footer className="bg-film text-film-text md:-ml-24 md:pl-24">
           <div className="mx-auto flex max-w-[88rem] flex-col gap-10 px-5 py-14 md:flex-row md:items-end md:justify-between md:px-10">
-            <Image src={wordmark} alt="Saxborsah" className="h-10 w-auto md:h-12" />
+            <div className="flex items-center gap-4 md:gap-5">
+              <Image src={wordmark} alt="Saxborsah" className="h-10 w-auto md:h-12" />
+              <span aria-hidden className="h-11 w-px bg-logo-gold/40 md:h-13" />
+              <span className="font-utility text-[0.6875rem] uppercase leading-[1.4] tracking-[0.16em] text-film-text md:text-xs">
+                Music &amp;
+                <br />
+                Event Management
+              </span>
+            </div>
             <nav aria-label="Footer" className="flex flex-wrap gap-x-8 gap-y-3 font-utility text-[0.6875rem] uppercase tracking-[0.14em] text-film-text">
               <a href="#setlist" className="hover:text-logo-gold">Services</a>
               <a href="#about" className="hover:text-logo-gold">About</a>
@@ -290,7 +305,7 @@ export default function SaxborsahHome() {
             </nav>
           </div>
           <p className="mx-auto max-w-[88rem] px-5 pb-10 font-utility text-[0.625rem] uppercase tracking-[0.16em] text-film-text/70 md:px-10">
-            © Saxborsah Music
+            © Saxborsah Music &amp; Event Management
           </p>
         </footer>
       </div>

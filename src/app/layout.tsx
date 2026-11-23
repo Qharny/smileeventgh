@@ -20,7 +20,7 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Saxborsah Music | Live saxophone, band, sound & DJ",
+  title: "Saxborsah Music & Event Management | Live saxophone, band, sound & DJ",
   description:
     "Book live saxophone, a live band, sound equipment, DJ services or music consulting for weddings, church services, corporate events and private functions.",
 };
