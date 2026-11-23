@@ -1,26 +1,162 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Saxborsah Music tokens: light stone and ink, with the logo's gold.
+   gold = fills, buttons, lines; gold-deep = gold *text* (passes contrast on stone).
+   Film frames and the footer stay dark so the slides and logo pop. */
+@theme {
+  --color-stone: #e9e6e0;
+  --color-stone-deep: #dcd8d0;
+  --color-stone-up: #e2ded7;
+  --color-ink: #16151a;
+  --color-gold: #b8913f;
+  --color-gold-hi: #cda75a;
+  --color-gold-deep: #86661f;
+  --color-logo-gold: #d3b16d;
+  --color-muted: #5e5b55;
+  --color-green: #1f4d3a;
+  --color-danger: #a8261b;
+  --color-film: #16151a;
+  --color-film-up: #24222a;
+  --color-film-text: #b9b4ab;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-big-shoulders), "Arial Narrow", sans-serif;
+  --font-body: var(--font-hanken), system-ui, sans-serif;
+  --font-utility: var(--font-plex-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-stone);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+@layer components {
+  /* ---------- Pearl key (the signature) ---------- */
+  .pearl-key {
+    --size: 1.125rem;
+    position: relative;
+    display: block;
+    flex: none;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 9999px;
+    background: radial-gradient(circle at 34% 30%, #fff 0%, #efe7da 38%, #c9bba8 100%);
+    box-shadow:
+      0 0 0 2px var(--color-stone),
+      0 0 0 3.5px var(--color-gold),
+      0 2px 4px rgb(22 21 26 / 0.25);
+    transition:
+      transform 180ms var(--ease-out-quart),
+      box-shadow 180ms var(--ease-out-quart),
+      background 180ms var(--ease-out-quart);
+  }
+
+  .pearl-key[data-pressed="true"] {
+    transform: scale(0.8);
+    background: radial-gradient(circle at 50% 58%, #e9dfcf 0%, #cbbca7 70%, #a8977f 100%);
+    box-shadow:
+      0 0 0 2px var(--color-stone),
+      0 0 0 3.5px var(--color-ink),
+      inset 0 2px 4px rgb(0 0 0 / 0.35);
+  }
+}
+
+/* ---------- Hero ---------- */
+.rise-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+}
+
+.rise-line > span {
+  display: block;
+  animation: rise 1000ms var(--ease-out-quart) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Media placeholders ---------- */
+.frame-placeholder {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, rgb(211 177 109 / 0.06) 14px 15px),
+    linear-gradient(160deg, var(--color-film-up), var(--color-film));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* The emblem turns like a record at 33⅓ rpm, only while the sample plays
+   (play state is driven inline by HeroPlayer). */
+.record {
+  animation: spin 1.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Misregistered print: each headline line carries a hand-set outline copy of
+   itself, nudged off-register (set the text in data-text). */
+.misprint {
+  position: relative;
+}
+
+.misprint::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  transform: translate(0.022em, 0.028em);
+  color: transparent;
+  -webkit-text-stroke: max(1px, 0.012em) var(--outline, var(--color-gold));
+  pointer-events: none;
+}
+
+/* Vertical ticker in the docked player; runs only while music plays. */
+.ticker {
+  animation: ticker 9s linear infinite;
+}
+
+@keyframes ticker {
+  to {
+    transform: translateY(-50%);
+  }
 }
